@@ -1,21 +1,15 @@
-MIT License
+Copyright (c) 2026 Albus. All rights reserved.
 
-Copyright (c) 2026 Mash`aliddin
+ALBUS PUBLIC EVALUATION LICENSE
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This repository is published solely for startup evaluation, technical review and demonstration purposes.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+No permission is granted to copy, reproduce, modify, distribute, sublicense, sell, commercialize, deploy, reverse engineer, create derivative products from, or otherwise use the software, documentation, product materials, architecture descriptions, branding or other contents of this repository except for personal review of the Albus startup submission.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+The Albus name, visual identity, product presentation and related brand assets are not licensed for reuse.
+
+This repository does not grant any rights to production Albus source code, private integrations, prompts, models, datasets, marketplace mappings, business rules, customer data, credentials, trade secrets or other proprietary know-how.
+
+Any rights not expressly granted are reserved by the copyright owner.
+
+THE MATERIALS ARE PROVIDED "AS IS" FOR EVALUATION PURPOSES, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
