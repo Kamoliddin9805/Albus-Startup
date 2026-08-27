@@ -1,3 +1,10 @@
+/*
+ * PUBLIC EVALUATION TYPES
+ *
+ * These types are intentionally simplified and do not represent Albus's
+ * production data model, database schema or provider-specific contracts.
+ */
+
 export type Marketplace = "yandex" | "uzum" | "ozon" | "wildberries";
 
 export type Capability =
