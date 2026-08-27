@@ -1,3 +1,11 @@
+/*
+ * PUBLIC EVALUATION REFERENCE ONLY
+ *
+ * This file shows only a generic orchestration shape. Production Albus AI
+ * routing, prompts, retrieval, marketplace context building, scoring and
+ * decision logic are intentionally excluded.
+ */
+
 import type {
   ActionPreview,
   ActionRequest,
@@ -26,7 +34,7 @@ export class AiOrchestrator {
       .sort((a, b) => severityWeight(b.severity) - severityWeight(a.severity));
   }
 
-  async planAction(
+  async planReferenceAction(
     context: SellerContext,
     request: ActionRequest,
   ): Promise<ActionPreview> {
