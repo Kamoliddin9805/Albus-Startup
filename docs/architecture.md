@@ -1,59 +1,73 @@
-# Albus Architecture
+# Albus — Technical Overview
 
-## Design goal
+This document describes the **public evaluation-level architecture** of Albus. It intentionally shows system boundaries and engineering principles without exposing production implementation details.
 
-Albus is designed as a unified seller operating system rather than a set of independent marketplace screens. The same product, order, stock and action concepts are normalized behind a marketplace adapter layer.
+## Design objective
 
-## High-level components
+Albus is designed to provide one consistent seller experience across multiple marketplaces while allowing each marketplace to retain its own requirements and capabilities behind a controlled integration boundary.
 
-### 1. Seller UI
-Desktop and mobile interfaces expose a single operational workspace for products, orders, stock, diagnostics and AI commands.
+## System boundaries
 
-### 2. AI Orchestrator
-The orchestrator converts natural-language seller requests into read operations, diagnostics or structured action proposals. It does not bypass business rules.
+```mermaid
+flowchart TB
+    U[Seller] --> UI[Albus Web / Mobile]
+    UI --> OPS[AI + Operations Layer]
+    OPS --> CTRL[Policy / Validation Controls]
+    CTRL --> INT[Marketplace Integration Boundary]
+    INT --> Y[Yandex Market]
+    INT --> UZ[Uzum Market]
+    INT --> O[Ozon]
+    INT --> W[Wildberries]
 
-### 3. Marketplace Adapter Layer
-Each marketplace integration implements a common capability contract. This allows Albus to support Yandex Market, Uzum Market, Ozon and Wildberries without duplicating application logic throughout the product.
-
-### 4. Action Layer
-Write operations pass through validation, capability checks, authorization, preview, confirmation and idempotency protection before execution.
-
-### 5. Audit and observability
-Every controlled action should produce an auditable result. Production systems additionally require timeout handling, retries, rate-limit awareness and provider-specific error mapping.
-
-## Request flow
-
-```text
-User request
-   ↓
-Intent / context resolution
-   ↓
-Capability registry
-   ↓
-Read-only query OR action proposal
-   ↓
-Validation
-   ↓
-Preview
-   ↓
-User confirmation
-   ↓
-Marketplace adapter
-   ↓
-Provider API
-   ↓
-Result + audit event
+    OPS --> OBS[Diagnostics / Observability]
 ```
 
-## Security principles
+## Publicly disclosed components
 
-- Credentials stay server-side.
-- Marketplace tokens are never exposed to the browser.
-- Unsupported actions are rejected by the capability registry.
-- Write actions require explicit confirmation where appropriate.
-- Idempotency protects against duplicate execution.
-- Production secrets and customer data are excluded from this public repository.
+### 1. Seller experience
+A shared desktop/mobile workspace for products, orders, stock, prices, diagnostics and AI-assisted workflows.
+
+### 2. AI + operations layer
+AI helps interpret seller requests, prepare content, surface operational issues and assist with safe workflows. The production prompt design, retrieval strategy, model routing and commercial enrichment logic are private.
+
+### 3. Control boundary
+Sensitive changes are not treated as unrestricted AI output. Albus applies product-level controls before an eligible operation can be executed. Exact policies, thresholds and internal rules are proprietary.
+
+### 4. Marketplace integration boundary
+Marketplace-specific behavior is isolated from the main seller experience so Albus can support multiple channels without duplicating the entire product for every provider. Provider-specific request mappings, endpoints and validation logic are not published.
+
+### 5. Diagnostics and reliability
+The production system is designed around operational visibility, error handling and safe recovery. Detailed retry policies, rate-limit logic, provider error maps and infrastructure topology remain private.
+
+## Engineering principles
+
+- server-side credential isolation;
+- least-privilege access;
+- explicit control of sensitive actions;
+- clear marketplace capability boundaries;
+- auditability for important operations;
+- resilient handling of provider failures;
+- no production secrets in browser-delivered code;
+- extensibility for additional commerce channels.
+
+## What this repository does **not** disclose
+
+This public showcase intentionally excludes:
+
+- production service topology;
+- production database schemas;
+- provider-specific API contracts;
+- credentials or secret-management implementation;
+- AI system prompts;
+- marketplace field mappings;
+- proprietary category / attribute resolution logic;
+- product scoring and enrichment algorithms;
+- internal automation thresholds;
+- customer data structures;
+- production deployment configuration.
 
 ## Scaling direction
 
-The adapter pattern allows new marketplaces to be added without redesigning the seller experience. The same architecture can later support Amazon, eBay, Shopify and regional commerce channels.
+The architecture is intended to support additional commerce channels without changing the fundamental seller experience. Future expansion may include Amazon, eBay, Shopify and other regional platforms.
+
+> This document demonstrates Albus's engineering direction for startup evaluation. It is not a production implementation guide.
