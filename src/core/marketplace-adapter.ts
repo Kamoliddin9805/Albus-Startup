@@ -1,3 +1,11 @@
+/*
+ * PUBLIC EVALUATION REFERENCE ONLY
+ *
+ * This is a provider-agnostic contract used to demonstrate architecture.
+ * Real Albus marketplace adapters, endpoints, payload mappings, validation,
+ * authentication and marketplace-specific logic are intentionally private.
+ */
+
 import type {
   ActionPreview,
   ActionRequest,
@@ -14,7 +22,15 @@ export interface MarketplaceAdapter {
 
   health(context: SellerContext): Promise<DiagnosticItem[]>;
   preview(context: SellerContext, request: ActionRequest): Promise<ActionPreview>;
-  execute(context: SellerContext, request: ActionRequest): Promise<ActionResult>;
+
+  /**
+   * Reference-only method. Production execution is intentionally not exposed
+   * in this public repository.
+   */
+  executeReferenceExample(
+    context: SellerContext,
+    request: ActionRequest,
+  ): Promise<ActionResult>;
 }
 
 export class AdapterRegistry {
@@ -26,9 +42,7 @@ export class AdapterRegistry {
 
   get(marketplace: Marketplace): MarketplaceAdapter {
     const adapter = this.adapters.get(marketplace);
-    if (!adapter) {
-      throw new Error(`Marketplace adapter is not registered: ${marketplace}`);
-    }
+    if (!adapter) throw new Error("Reference marketplace adapter is unavailable.");
     return adapter;
   }
 
